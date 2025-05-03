@@ -1,0 +1,7 @@
+MIN_LENGTH_USER_NAME = 1
+MAX_LENGTH_USER_NAME = 50
+MIN_LENGTH_USER_PASSWORD = 8
+INVALID_PASS_MIN_LEN = 'Пароль не может быть меньше 8 символов'
+INVALID_PASS_CONSIST_EMAIL = 'Пароль не должен состоять из e-mail'
+
+JWT_LIFETIME_SECONDS = 3600
