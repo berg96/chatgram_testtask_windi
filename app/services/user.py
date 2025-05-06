@@ -1,13 +1,18 @@
-from typing import Union
+import logging
+from typing import Union, Optional
 from uuid import UUID
 
+from fastapi import Request, Response
 from fastapi_users import (
     UUIDIDMixin, BaseUserManager, InvalidPasswordException
 )
 
 from core import constants
-from db import User
+from models import User
 from schemas.user import UserCreate
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, UUID]):
@@ -25,8 +30,13 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, UUID]):
                 reason=constants.INVALID_PASS_CONSIST_EMAIL
             )
 
-    # async def on_after_register(
-    #     self, user: User, request: Optional[Request] = None
-    # ):
-    #     # Вместо print здесь можно было бы настроить отправку письма.
-    #     print(f'Пользователь {user.email} зарегистрирован.')
+    async def on_after_register(
+        self, user: User, request: Optional[Request] = None
+    ):
+        logger.info('Зарегистрирован новый пользователь')
+
+    async def on_after_login(
+        self, user: User,
+        request: Optional[Request] = None, response: Optional[Response] = None
+    ):
+        logger.info('Пользователь вошёл в систему')
