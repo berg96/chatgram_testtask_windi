@@ -18,12 +18,17 @@ class Chat(Base):
     name: Mapped[str] = mapped_column(
         String(MAX_LENGTH_CHAT_NAME), nullable=False
     )
-    type: Mapped[ChatType] = mapped_column(Enum(ChatType), nullable=False)
+    type: Mapped[ChatType] = mapped_column(
+        Enum(ChatType), nullable=False, default=ChatType.private
+    )
 
     members: Mapped[List['User']] = relationship(
         secondary='chatmembers', back_populates='chat'
     )
     messages: Mapped[List['Message']] = relationship(back_populates='chat')
+    group: Mapped['Group'] = relationship(
+        'Group', back_populates='chat', uselist=False
+    )
 
 
 class ChatMember(Base):

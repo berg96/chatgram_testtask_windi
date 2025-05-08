@@ -13,7 +13,7 @@ class ChatBase(BaseModel):
     type: Literal['private', 'group']
 
 class ChatCreate(ChatBase):
-    pass
+    other_user_id: Optional[UUID] = None
 
 
 class ChatUpdate(ChatBase):
