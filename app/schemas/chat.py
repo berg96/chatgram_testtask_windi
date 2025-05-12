@@ -9,22 +9,22 @@ from schemas.user import UserRead
 
 
 class ChatBase(BaseModel):
-    name: str = Field(..., max_length=MAX_LENGTH_CHAT_NAME)
-    type: Literal['private', 'group']
+    pass
+
 
 class ChatCreate(ChatBase):
-    other_user_id: Optional[UUID] = None
+    other_user_id: UUID
 
 
 class ChatUpdate(ChatBase):
-    name: Optional[str] = Field(None, max_length=MAX_LENGTH_CHAT_NAME)
-    type: Optional[Literal['private', 'group']] = None
+    pass
 
 
 class ChatRead(ChatBase):
     id: UUID
+    name: str
     members: List[UserRead]
     messages: List[MessageRead]
 
     class Config:
-        orm_mode = True
+        from_attributes = True

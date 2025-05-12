@@ -23,7 +23,7 @@ class Chat(Base):
     )
 
     members: Mapped[List['User']] = relationship(
-        secondary='chatmembers', back_populates='chat'
+        secondary='chatmembers', back_populates='chats'
     )
     messages: Mapped[List['Message']] = relationship(back_populates='chat')
     group: Mapped['Group'] = relationship(
@@ -33,11 +33,8 @@ class Chat(Base):
 
 class ChatMember(Base):
     chat_id: Mapped[UUID] = mapped_column(
-        ForeignKey('chats.id', ondelete='CASCADE'), nullable=False
+        ForeignKey('chats.id', ondelete='CASCADE'), primary_key=True
     )
     user_id: Mapped[UUID] = mapped_column(
-        ForeignKey('user.id', ondelete='CASCADE'), nullable=False
+        ForeignKey('user.id', ondelete='CASCADE'), primary_key=True
     )
-
-    chat: Mapped['Chat'] = relationship(back_populates='members')
-    members: Mapped['User'] = relationship(back_populates='chats')
