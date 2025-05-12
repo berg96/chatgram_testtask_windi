@@ -11,12 +11,12 @@ router = APIRouter()
 
 @router.post('/', response_model=GroupRead)
 async def create_group(
-    data: GroupCreate,
+    group: GroupCreate,
     session: AsyncSession = Depends(get_async_session),
     user = Depends(current_user),
 ):
     return await GroupService.create_group_chat(
-        session, data, user.id
+        session, group, user.id
     )
 
 
@@ -32,11 +32,11 @@ async def read_group(
 @router.patch('/{group_id}', response_model=GroupRead)
 async def update_group(
     group_id: UUID,
-    data: GroupUpdate,
+    update_data: GroupUpdate,
     session: AsyncSession = Depends(get_async_session),
     user = Depends(current_user),
 ):
-    return await GroupService.update_group(session, group_id, data)
+    return await GroupService.update_group(session, group_id, user.id, update_data)
 
 
 @router.delete('/{group_id}', status_code=status.HTTP_204_NO_CONTENT)

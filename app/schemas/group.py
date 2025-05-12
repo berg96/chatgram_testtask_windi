@@ -10,16 +10,17 @@ from schemas.user import UserRead
 
 
 class GroupBase(BaseModel):
-    type: Optional[Literal['group',]]
+    pass
 
 
 class GroupCreate(GroupBase):
+    type: Optional[Literal['group',]]
     members: list[UUID]
     name: str = Field(..., max_length=MAX_LENGTH_CHAT_NAME)
 
 
 class GroupUpdate(GroupBase):
-    members: Optional[list[UUID]]
+    members: Optional[list[UUID]] = Field(None)
     name: Optional[str] = Field(None, max_length=MAX_LENGTH_CHAT_NAME)
 
 

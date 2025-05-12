@@ -1,7 +1,7 @@
 from typing import Sequence
 from uuid import UUID
 
-from sqlalchemy import select, exists
+from sqlalchemy import select, exists, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -100,6 +100,16 @@ class ChatRepository(BaseRepository[
                 ChatMember.user_id == user_id
             ).exists()
         ))).scalar()
+
+    async def remove_all_members(
+        self,
+        session: AsyncSession,
+        chat_id: UUID,
+    ) -> None:
+        await session.execute(
+            delete(ChatMember).where(ChatMember.chat_id == chat_id)
+        )
+        await session.commit()
 
 
 chat_repo = ChatRepository(Chat)
