@@ -8,4 +8,10 @@ MAX_LENGTH_MESSAGE_TEXT = 1000
 
 JWT_LIFETIME_SECONDS = 3600
 
-CHAT_NOT_FOUND = 'Чата с id {} не существует'
+CHAT_FORBIDDEN = 'Для пользователя ({}) доступ запрещён к чату с id: {}'
+CHAT_NOT_FOUND = 'Не существует чата с id: {}'
+CHAT_FIELD_ERROR = 'Для {} чата необходимо указать {}'
+CHAT_ALREADY_EXISTS = (
+    'Уже существует приватный чат'
+    ' между этими пользователями: {} | {}'
+)

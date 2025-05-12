@@ -7,7 +7,7 @@ from core.db import Base
 
 
 class Group(Base):
-    id: Mapped[UUID] = mapped_column(
+    chat_id: Mapped[UUID] = mapped_column(
         ForeignKey('chats.id', ondelete='CASCADE'), primary_key=True
     )
     creator_id: Mapped[UUID] = mapped_column(

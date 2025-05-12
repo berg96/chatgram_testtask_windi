@@ -1,15 +1,14 @@
 from typing import Literal, List, Optional
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
-from core.constants import MAX_LENGTH_CHAT_NAME
 from schemas.message import MessageRead
 from schemas.user import UserRead
 
 
 class ChatBase(BaseModel):
-    pass
+    type: Optional[Literal['private',]]
 
 
 class ChatCreate(ChatBase):
